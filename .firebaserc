@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "REPLACE_WITH_FIREBASE_PROJECT_ID"
+    "default": "boilerplate-601d9"
   },
   "targets": {},
   "etags": {}
