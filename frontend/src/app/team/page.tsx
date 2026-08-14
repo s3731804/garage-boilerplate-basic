@@ -31,7 +31,7 @@ export default async function TeamPage() {
 
         <section
           aria-label="Team members"
-          className="mx-auto mt-10 grid max-w-3xl grid-cols-1 items-start gap-x-14 gap-y-12 md:grid-cols-2"
+          className="mx-auto mt-10 grid max-w-3xl grid-cols-1 items-stretch gap-x-14 gap-y-12 md:grid-cols-2"
         >
           {TEAM_MEMBERS.map((member) => (
             <TeamMemberCard key={member.name} member={member} />
