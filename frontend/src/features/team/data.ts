@@ -1,6 +1,23 @@
 import type { TeamMember } from '@/features/team/types'
 
-export const TEAM_MEMBERS: TeamMember[] = [
+// EC-04: "Role missing or empty" is a content-source validation error per
+// docs/requirements.md § 5 — fail at module load (build/dev time) rather
+// than let a blank role reach the page. TeamMemberCard's `roleLabel`
+// fallback is the second, defensive layer in case this check is ever
+// bypassed (e.g. content loaded from an external source later).
+function assertValidTeamMember(member: TeamMember, index: number): void {
+  if (!member.name.trim()) {
+    throw new Error(`Team member at index ${index} has no name`)
+  }
+  if (!member.role.trim()) {
+    throw new Error(`Team member "${member.name}" has no role`)
+  }
+  if (!member.blurb.trim()) {
+    throw new Error(`Team member "${member.name}" has no blurb`)
+  }
+}
+
+const rawTeamMembers: TeamMember[] = [
   {
     name: 'Antony Rajan',
     role: 'Project Manager',
@@ -32,3 +49,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       'Hoang develops the team-facing experience and integration flow, translating approved designs into tested, accessible, production-ready components.',
   },
 ]
+
+rawTeamMembers.forEach(assertValidTeamMember)
+
+export const TEAM_MEMBERS: TeamMember[] = rawTeamMembers
