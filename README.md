@@ -206,3 +206,14 @@ Follow the checklist in [CLAUDE.md — Forking for a New Client Project](CLAUDE.
 ## Credits
 
 Original boilerplate by **Duc Gia Tin Huynh** ([LinkedIn](https://www.linkedin.com/in/huynhducgiatin/)).
+
+## Team 34 — Team B
+
+Project: Zilch Compliance Hub — External Surfaces (Public Trust Page, Browser Extension, AI Scanner)
+
+Team members:
+- Antony Rajan — Project Manager
+- Morgan Xiao — Business Analyst
+- Callum Timms — UX
+- William Knights — Developer
+- Hoang Ha Quoc Huy — Developer
