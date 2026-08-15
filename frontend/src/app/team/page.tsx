@@ -17,14 +17,6 @@ export default async function TeamPage() {
   return (
     <main className="min-h-screen bg-white px-5 py-6 text-black sm:px-8 sm:py-8">
       <div className="mx-auto max-w-5xl">
-        <Link
-          href="/"
-          aria-label="Team 34 home"
-          className="inline-flex items-baseline text-xl font-black tracking-[-0.08em] text-black"
-        >
-          Team<span className="text-blue-700">34.</span>
-        </Link>
-
         <h1 className="mt-8 text-center text-2xl font-semibold tracking-tight sm:mt-4">
           Meet Team 34
         </h1>

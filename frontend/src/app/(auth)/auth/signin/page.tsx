@@ -17,7 +17,6 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -48,8 +47,7 @@ export default function SignInPage() {
       if (error instanceof Error && error.message.includes('email-not-verified')) {
         toast.error('Please verify your email before signing in.')
       } else {
-        setError('password', { type: 'manual', message: 'Invalid credentials, please try again' })
-        setError('email', { type: 'manual'})
+        toast.error('Invalid email or password')
       }
     }
   }
