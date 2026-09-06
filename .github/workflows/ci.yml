@@ -80,6 +80,33 @@ jobs:
       - name: Run backend unit tests
         run: pnpm run test
 
+  extension-scanner:
+    name: Extension & Scanner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test workspaces
+        run: pnpm run test:extension && pnpm run test:scanner
+
+      - name: Build workspaces
+        run: pnpm --filter @team34/extension build && pnpm --filter @team34/scanner-sandbox build
+
+      - name: Verify extension package
+        run: test -f extension/dist/manifest.json && test -f extension/dist/popup.html
+
   security:
     name: Security Scan
     runs-on: ubuntu-latest
