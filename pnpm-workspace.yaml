@@ -1,6 +1,8 @@
 packages:
   - 'frontend'
   - 'backend'
+  - 'extension'
+  - 'scanner-sandbox'
 
 overrides:
   # firebase-functions pulls in @types/express@4 transitively, which conflicts
