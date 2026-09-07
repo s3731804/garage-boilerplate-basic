@@ -25,6 +25,8 @@ ui-debug.log
 frontend/dist/
 backend/lib/
 backend/dist/
+extension/dist/
+scanner-sandbox/dist/
 
 # Testing
 coverage/
