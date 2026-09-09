@@ -85,6 +85,20 @@ crawler or a provider bill estimate.
 
 ## Handoff
 
+PR: https://github.com/s3731804/garage-boilerplate-basic/pull/9
+
+Remote verification run:
+https://github.com/s3731804/garage-boilerplate-basic/actions/runs/34336236330
+
+Frontend production SSR checks, backend tests and extension/scanner container
+checks passed in GitHub Actions. However, **Security Scan failed**. A local
+`pnpm audit --audit-level=high` reproduced 8 dependency findings (2 critical,
+2 high, 4 moderate), including Next.js, sharp and js-yaml. The existing dependency
+versions/lockfile were not changed by this PR. Do not merge or treat the full
+pipeline as green until the shared dependency findings are reviewed, patched and
+the application is retested. No audit exclusions or bypasses were added. The
+local SSR server was stopped after verification.
+
 Reviewer: please run the commands above and review the synthetic route and
 container restrictions. Team A must supply `prospectScanner.js` with a source
 commit and confirm the intended production runtime/API contract. Once available,
