@@ -1,0 +1,6 @@
+*
+!dist/
+!dist/**
+!package.json
+!scripts/
+!scripts/verify-isolation.mjs
