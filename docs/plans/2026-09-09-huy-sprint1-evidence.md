@@ -90,14 +90,43 @@ PR: https://github.com/s3731804/garage-boilerplate-basic/pull/9
 Remote verification run:
 https://github.com/s3731804/garage-boilerplate-basic/actions/runs/34336236330
 
-Frontend production SSR checks, backend tests and extension/scanner container
-checks passed in GitHub Actions. However, **Security Scan failed**. A local
+Initial 9 September result: frontend production SSR checks, backend tests and
+extension/scanner container checks passed in GitHub Actions. **Security Scan failed**. A local
 `pnpm audit --audit-level=high` reproduced 8 dependency findings (2 critical,
 2 high, 4 moderate), including Next.js, sharp and js-yaml. The existing dependency
-versions/lockfile were not changed by this PR. Do not merge or treat the full
-pipeline as green until the shared dependency findings are reviewed, patched and
-the application is retested. No audit exclusions or bypasses were added. The
-local SSR server was stopped after verification.
+versions/lockfile were unchanged at that point. This historical failure is
+superseded by the 10 September remediation below. No audit exclusions or
+bypasses were added.
+
+### Security remediation — 10 September 2026
+
+- Next.js and eslint-config-next: 16.3.3 (same major, patched runtime).
+- sharp >=0.35.4, js-yaml >=4.3.2 and qs >=6.16.0 via workspace overrides.
+- Vitest and coverage-v8: 4.1.11 across workspaces. Backend tests use the new
+  top-level worker settings, run sequentially and retain per-file isolation.
+- pnpm 10.34.5 pinned for local/CI consistency; lockfile regenerated with pnpm 10.
+
+The reproducible failure was `pnpm audit`: vulnerable resolved versions, not a
+failure in the SSR/container implementation. After patching, `pnpm audit
+--audit-level=low` returned **No known vulnerabilities found**. This checks the
+dependency advisory database, not all possible application security flaws.
+
+Local regression results on Node 22.23.2:
+
+- All 18 tests passed (backend 5, frontend 8, extension 1, scanner 4).
+- All four workspace builds and typechecks passed; lint passed with one
+  pre-existing unused-import warning in the Team page.
+- Production SSR HTTP smoke passed on Next.js 16.3.3. Request timestamps:
+  `2026-09-10T07:07:30.192Z`, `2026-09-10T07:07:30.430Z`.
+- Docker isolation proof passed again (UID 1000, no network, read-only root,
+  no capabilities/privilege escalation, safe defaults and page limit).
+
+See PR #9's latest Checks for the current remote verdict before merging.
+This remediation does not close the original-source review or client sign-off.
+
+Sources: [Next.js advisory](https://github.com/advisories/GHSA-p293-qw3h-jr36),
+[Vitest advisory](https://github.com/advisories/GHSA-82fw-gwwq-j7x9),
+[Vitest migration guide](https://vitest.dev/guide/migration/).
 
 Reviewer: please run the commands above and review the synthetic route and
 container restrictions. Team A must supply `prospectScanner.js` with a source

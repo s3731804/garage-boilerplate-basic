@@ -129,24 +129,16 @@ pnpm run validate         # Check for unreplaced template placeholders
 
 Security is enforced in independent layers — Claude Code guard hooks, HTTP hardening (helmet/CORS/rate limits), token + session-cookie auth, Zod input validation, default-deny Firestore rules, and CI scanning (`pnpm audit`). See [docs/SECURITY.md](docs/SECURITY.md).
 
-### Known `pnpm audit` findings (manual fix)
+### Dependency security checks
 
+Run `pnpm install --frozen-lockfile` and `pnpm audit` against the committed
+dependency versions. CI enforces `pnpm audit --audit-level=high`; do not suppress
+findings or treat a green audit as proof that all application code is secure.
 
-`pnpm audit` currently flags two high-severity CVEs — both transitive, dev/build-time only, not runtime-reachable:
-
-| Package | Issue | Pulled in by |
-|---------|-------|--------------|
-| `js-yaml` | CVE-2026-59870 — quadratic CPU DoS on `!!omap` resolution | eslint's dependency chain (lint-time only) |
-| `nanoid` | Infinite loop when a custom generator's `size` is 0 | postcss, used by Tailwind/Next/Vitest builds (build-time only) |
-
-To patch: add these two lines under `overrides:` in `pnpm-workspace.yaml`, then run `pnpm install`:
-
-```yaml
-  js-yaml: '^4.3.1'
-  nanoid: '^3.3.17'
-```
-
-Confirm with `pnpm audit` — should show 0 high/critical findings.
+The September 2026 follow-up upgrades Next.js and its ESLint configuration to
+16.3.3, Vitest/coverage to 4.1.11, and sets patched transitive minimums for sharp
+(0.35.4), js-yaml (4.3.2) and qs (6.16.0). Existing postcss/nanoid overrides remain.
+See `docs/plans/2026-09-09-huy-sprint1-evidence.md` for verification and handoff.
 
 ## Git Workflow
 
