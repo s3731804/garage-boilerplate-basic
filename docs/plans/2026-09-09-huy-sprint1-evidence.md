@@ -14,13 +14,13 @@ extension scaffold from PR #8.
 
 This is an engineering assessment of the current repository, not a hosting quote.
 
-| Criterion | Next.js server rendering | Express with server HTML templates |
-| --- | --- | --- |
-| SEO and previews | Can return content and metadata in HTML; metadata API handles tags | Can return equivalent HTML; title, descriptions and escaping need explicit template handling |
-| Build effort | Lower here because this repository already uses Next.js; the spike builds with the existing app | Lower if the target application is already Express; adding another renderer to this repository increases integration effort |
-| Runtime cost | Requires a compatible server/serverless runtime; measure traffic and provider costs before budgeting | Requires a Node server; potential simpler rendering does not establish a cheaper deployment without measurement |
-| Compatibility | Matches this repository's React/Next frontend | May better match a separate Express application, but that source/deployment was not available for integration verification |
-| Risks | Cache/publication rules and server/client data boundary require design | Manual metadata, error handling and data boundary require design |
+| Criterion        | Next.js server rendering                                                                             | Express with server HTML templates                                                                                          |
+| ---------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| SEO and previews | Can return content and metadata in HTML; metadata API handles tags                                   | Can return equivalent HTML; title, descriptions and escaping need explicit template handling                                |
+| Build effort     | Lower here because this repository already uses Next.js; the spike builds with the existing app      | Lower if the target application is already Express; adding another renderer to this repository increases integration effort |
+| Runtime cost     | Requires a compatible server/serverless runtime; measure traffic and provider costs before budgeting | Requires a Node server; potential simpler rendering does not establish a cheaper deployment without measurement             |
+| Compatibility    | Matches this repository's React/Next frontend                                                        | May better match a separate Express application, but that source/deployment was not available for integration verification  |
+| Risks            | Cache/publication rules and server/client data boundary require design                               | Manual metadata, error handling and data boundary require design                                                            |
 
 Recommendation: use Next.js for this repository's SSR spike. Confirm the actual
 production host and API contract with Team A before adopting it for the live
@@ -72,16 +72,16 @@ crawler or a provider bill estimate.
 
 ## Acceptance status — do not mark all items complete
 
-| Item | Evidence/status |
-| --- | --- |
-| Two SSR approaches assessed | Comparison above |
-| SSR HTML with title/meta | Local production build + automated HTTP test passed |
-| SSR recommendation agreed with Team A | Awaiting confirmation |
-| Client D7 resolved | Awaiting confirmation |
-| Isolated scanner environment provisioned | Ephemeral local Docker runtime proof passed; reproducible in CI |
-| Crawl rules and rate limits documented | Existing crawl rules plus tested budget; live robots adapter not implemented |
-| Existing prospectScanner.js reviewed | Blocked: original source unavailable; integration notes are proposals only |
-| Cost model noted | Formula/scenarios documented; rates and operating ceiling still TBD |
+| Item                                     | Evidence/status                                                              |
+| ---------------------------------------- | ---------------------------------------------------------------------------- |
+| Two SSR approaches assessed              | Comparison above                                                             |
+| SSR HTML with title/meta                 | Local production build + automated HTTP test passed                          |
+| SSR recommendation agreed with Team A    | Awaiting confirmation                                                        |
+| Client D7 resolved                       | Awaiting confirmation                                                        |
+| Isolated scanner environment provisioned | Ephemeral local Docker runtime proof passed; reproducible in CI              |
+| Crawl rules and rate limits documented   | Existing crawl rules plus tested budget; live robots adapter not implemented |
+| Existing prospectScanner.js reviewed     | Blocked: original source unavailable; integration notes are proposals only   |
+| Cost model noted                         | Formula/scenarios documented; rates and operating ceiling still TBD          |
 
 ## Handoff
 
