@@ -8,6 +8,28 @@ const policy = {
 };
 
 describe("evaluateCrawlTarget", () => {
+  it("denies local/IP and credential targets even when allowlisted", () => {
+    for (const host of [
+      "localhost",
+      "scanner.localhost",
+      "scanner.local",
+      "127.0.0.1",
+      "[::1]",
+      "1.1.1.1",
+    ]) {
+      expect(
+        evaluateCrawlTarget(`https://${host}/`, {
+          ...policy,
+          allowedHosts: [host],
+        }).allowed,
+      ).toBe(false);
+    }
+    expect(
+      evaluateCrawlTarget("https://user:pass@supplier.example.com/", policy)
+        .allowed,
+    ).toBe(false);
+    expect(evaluateCrawlTarget("not a url", policy).allowed).toBe(false);
+  });
   it("allows only HTTPS URLs on explicitly approved hosts", () => {
     expect(
       evaluateCrawlTarget("https://supplier.example.com/about", policy),

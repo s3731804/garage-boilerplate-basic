@@ -7,6 +7,11 @@ boilerplate repository (`Txmmsy/BoilerPlateCode`) was also inspected on 6 Septem
 2026 and does not contain that file. Therefore this document defines the contract
 for review; it does not claim that unavailable code has been reused.
 
+Rechecked on 9 September 2026: `Txmmsy/BoilerPlateCode` at
+`d4842d3d8bd1998fb21ea3303986de4c18a0c472` still does not contain the source.
+The source-review acceptance item remains blocked. Ask Team A for the file's
+repository, path and commit SHA; the proposals below are not a completed review.
+
 ## Reuse when the source is supplied
 
 - Reuse pure parsing and field-normalisation functions when they accept HTML or a

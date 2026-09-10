@@ -19,7 +19,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.34.5
 
       - uses: actions/setup-node@v4
         with:
@@ -46,7 +46,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.34.5
 
       - uses: actions/setup-node@v4
         with:
@@ -59,6 +59,20 @@ jobs:
       - name: Run frontend tests
         run: pnpm run test:component
 
+      - name: Build SSR spike
+        run: pnpm --filter frontend build
+
+      - name: Verify production SSR HTML
+        run: |
+          pnpm --filter frontend start --port 3100 > /tmp/team34-ssr.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://localhost:3100/s/demo-supplier > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/check-ssr-spike.mjs
+
   test-backend:
     name: Backend Unit Tests
     runs-on: ubuntu-latest
@@ -67,7 +81,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.34.5
 
       - uses: actions/setup-node@v4
         with:
@@ -88,7 +102,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.34.5
 
       - uses: actions/setup-node@v4
         with:
@@ -107,6 +121,9 @@ jobs:
       - name: Verify extension package
         run: test -f extension/dist/manifest.json && test -f extension/dist/popup.html
 
+      - name: Prove scanner container isolation
+        run: docker compose -f scanner-sandbox/compose.yaml run --build --rm scanner-proof
+
   security:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -115,7 +132,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.34.5
 
       - uses: actions/setup-node@v4
         with:
