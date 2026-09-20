@@ -34,6 +34,11 @@ The four scenario links exercise full data, missing fields, empty certifications
 and long supplier/certificate content. All data is fictional and marked as such.
 The existing Team34 banner belongs to the boilerplate, not the S2-3 component.
 
+`/preview/*` is not served on the production deployment: `app/preview/layout.tsx`
+returns 404 when `VERCEL_ENV=production`. Local builds and Vercel Preview
+deployments still serve it, so a preview deployment of this branch is the way to
+give Callum a remote link.
+
 ## Verification, 20 September 2026
 
 - Production build including TypeScript: passed.
