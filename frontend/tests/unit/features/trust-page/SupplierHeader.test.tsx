@@ -26,6 +26,11 @@ describe('SupplierHeader', () => {
     expect(screen.getByText('Packaging for local businesses.')).toBeVisible()
     expect(screen.getByText('18 Sept 2026')).toHaveAttribute('dateTime', '2026-09-18T12:00:00Z')
   })
+  it('shows an initials tile, not an image, when the supplier has no logo', () => {
+    render(<SupplierHeader supplier={{ name: 'Acme Corporation' }} />)
+    expect(screen.getByText('AC')).toBeInTheDocument()
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
+  })
   it('omits absent fields and invalid dates instead of rendering blank labels', () => {
     const { container } = render(
       <SupplierHeader

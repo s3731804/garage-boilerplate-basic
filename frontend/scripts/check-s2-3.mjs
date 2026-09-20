@@ -12,7 +12,7 @@ for (const scenario of ['full', 'thin', 'empty', 'long']) {
   assert.match(main, /Synthetic data only/)
   assert.doesNotMatch(main, /<a[^>]+(?:download|\.pdf)/i)
   if (scenario === 'full') {
-    for (const label of ['Verified', 'Self-declared', 'Expired on', 'DEMO-ENV-001']) {
+    for (const label of ['Verified', 'Self-declared', '(expired)', 'DEMO-ENV-001']) {
       assert.ok(main.includes(label), `full: ${label} must exist before hydration`)
     }
     assert.equal((main.match(/<article\b/g) || []).length, 3)

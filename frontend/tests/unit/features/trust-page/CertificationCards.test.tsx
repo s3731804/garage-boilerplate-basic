@@ -42,10 +42,40 @@ describe('CertificationCards', () => {
     )
     const expiredCard = screen.getByRole('article', { name: 'Old certificate' })
     expect(within(expiredCard).getByText('Expired')).toBeVisible()
-    expect(within(expiredCard).getByText('Expired on')).toBeVisible()
+    expect(within(expiredCard).getByText('Valid to')).toBeVisible()
     expect(within(expiredCard).getByText('31 Aug 2025')).toHaveAttribute('dateTime', '2025-08-31')
+    // Screen-reader cue on the date itself, so colour is never the only signal.
+    expect(within(expiredCard).getByText('(expired)')).toBeInTheDocument()
     expect(screen.getByText('Self-declared')).toBeVisible()
     expect(screen.getAllByRole('article')).toHaveLength(2)
+  })
+  it('words the validity line by which dates exist', () => {
+    render(
+      <CertificationCards
+        certifications={[
+          {
+            id: 'a',
+            name: 'Both',
+            status: 'verified',
+            validFrom: '2025-01-01',
+            validUntil: '2027-01-01',
+          },
+          { id: 'b', name: 'From only', status: 'verified', validFrom: '2025-01-01' },
+          { id: 'c', name: 'To only', status: 'verified', validUntil: '2027-01-01' },
+        ]}
+      />
+    )
+    const label = (name: string) => screen.getByRole('article', { name })
+    expect(within(label('Both')).getByText('Valid')).toBeVisible()
+    expect(within(label('From only')).getByText('Valid from')).toBeVisible()
+    expect(within(label('To only')).getByText('Valid to')).toBeVisible()
+    expect(within(label('Both')).queryByText('(expired)')).not.toBeInTheDocument()
+  })
+  it('numbers the section for the page that owns it', () => {
+    const { rerender } = render(<CertificationCards certifications={[]} />)
+    expect(screen.getByText('01')).toBeInTheDocument()
+    rerender(<CertificationCards certifications={[]} sectionNumber="03" />)
+    expect(screen.getByText('03')).toBeInTheDocument()
   })
   it('omits null, blank and invalid fields without empty labels', () => {
     const { container } = render(

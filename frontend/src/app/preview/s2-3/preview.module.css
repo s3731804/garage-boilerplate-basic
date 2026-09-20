@@ -1,13 +1,13 @@
 .preview {
   width: 100%;
-  max-width: 1160px;
+  max-width: 1344px; /* 1280px design column + 2 x 32px padding */
   margin: 0 auto;
   padding: 24px 32px 48px;
-  background: #f5f7f4;
-  color: #21352b;
+  background: #f8fafc;
+  color: #0f172a;
 }
 .notice {
-  border-left: 3px solid #285b48;
+  border-left: 3px solid #4f46e5;
   padding: 0 0 0 14px;
   margin-bottom: 20px;
   font-size: 13px;
@@ -18,7 +18,7 @@
 .notice p {
   margin: 5px 0 0;
   line-height: 1.5;
-  color: #53665b;
+  color: #475569;
 }
 .scenarios {
   display: flex;
@@ -27,8 +27,8 @@
   margin-bottom: 24px;
 }
 .scenarios a {
-  color: #315a46;
-  border: 1px solid #a7bcac;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 13px;
@@ -36,20 +36,20 @@
 }
 .scenarios a[aria-current='page'] {
   color: #fff;
-  background: #285b48;
-  border-color: #285b48;
+  background: #4f46e5;
+  border-color: #4f46e5;
 }
 .scenarios a:focus-visible {
-  outline: 3px solid #315a46;
+  outline: 3px solid #4f46e5;
   outline-offset: 3px;
 }
 .footer {
-  border-top: 1px solid #dce2df;
+  border-top: 1px solid #e2e8f0;
   margin-top: 32px;
   padding-top: 18px;
   font-size: 12px;
   line-height: 1.6;
-  color: #53665b;
+  color: #475569;
 }
 @media (max-width: 540px) {
   .preview {

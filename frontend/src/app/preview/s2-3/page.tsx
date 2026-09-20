@@ -87,7 +87,8 @@ export default async function S23Preview({
       <div className={styles.notice}>
         <strong>S2-3 · QA preview</strong>
         <p>
-          Synthetic data only. Not a live supplier page. Visual design awaits Callum’s frame review.
+          Synthetic data only. Not a live supplier page. Styled to the HighFidelity Figma frame
+          “Profile 1 - Four Certifications - Desktop”; design QA is Callum’s.
         </p>
       </div>
       <nav className={styles.scenarios} aria-label="QA scenarios">
