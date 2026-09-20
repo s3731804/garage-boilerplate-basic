@@ -1,0 +1,289 @@
+/*
+ * Values are read from the team's HighFidelity Figma file, frame
+ * "Profile 1 - Four Certifications - Desktop" (Dev Mode, 20 Sep 2026).
+ * Marked "approx." where the value was estimated from the frame rather than
+ * read from the inspect panel; confirm those in design QA.
+ */
+.header,
+.certifications {
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color: #0f172a;
+}
+
+/* ── Supplier header ─────────────────────────────────────────────── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background: #eef2ff;
+  border-radius: 12px;
+}
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* approx. */
+}
+.logo {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+.titleDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.name {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.meta {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #475569;
+}
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.fact {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.fact dt {
+  color: #475569; /* approx. */
+  font-weight: 400;
+}
+.fact dt::after {
+  content: ':';
+}
+.fact dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+/* 1px x 12px divider between ABN and Country, 24px either side. */
+.fact + .fact {
+  position: relative;
+  padding-left: 25px;
+}
+.fact + .fact::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 12px;
+  transform: translateY(-50%);
+  background: #e2e8f0;
+}
+.introduction {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  overflow-wrap: anywhere;
+}
+
+/* ── Certifications ──────────────────────────────────────────────── */
+.certifications {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* approx. */
+  margin-top: 32px;
+}
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* approx. */
+}
+.badge {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #0f172a;
+  color: #fff;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px; /* approx. */
+  font-weight: 700;
+  line-height: 1;
+}
+.sectionHeading h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+/* Design: three 416px cards + two 16px gaps in a 1280px column. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+.cardHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cardHeading h3 {
+  min-width: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2; /* design is 100%; 1.2 keeps wrapped titles legible */
+  overflow-wrap: anywhere;
+}
+.chip {
+  flex: none;
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.verified {
+  background: #d1fae5;
+  color: #047857;
+}
+.self-declared {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.expired {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* approx. */
+  margin: 0;
+}
+.detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.detail dt {
+  color: #475569; /* approx. */
+  font-weight: 400;
+}
+.detail dt::after {
+  content: ':';
+}
+.detail dd {
+  min-width: 0;
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+/* The validity line is bold end to end in the design. */
+.validity dt,
+.validity dd {
+  color: #0f172a;
+  font-weight: 700;
+}
+/* Expired treatment: date in the chip's red. The chip and a screen-reader-only
+   "(expired)" carry the meaning, so colour is never the only signal. */
+.expiredDate {
+  color: #b91c1c;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.empty {
+  margin: 0;
+  padding: 32px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #475569;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 540px) {
+  .header {
+    padding: 20px;
+    gap: 16px;
+  }
+  .topRow {
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .logo {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  .name {
+    font-size: 24px;
+  }
+}
