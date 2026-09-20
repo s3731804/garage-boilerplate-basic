@@ -73,12 +73,51 @@ the places they differ:
 3. **In the design, not in the S2-3 bullets, so not built:** the "n of N certifications
    verified by Zilch" summary line, the Copy link button, the description with "Show
    more", and the download link (hidden until G-3, as required).
+4. **Logo placeholder vs P-5.** The design's `logo-placeholder` is an initials tile,
+   which is what the header shows when a supplier has no logo. Test Fixture Spec P-5
+   (SUP-2) expects "no logo … no empty labels or placeholder frames". Callum to decide
+   which one wins; the test for it is an `it.todo` until then.
+5. **Certificate scope (C-4).** The Field Mapping and the fixture matrix list `scope` as
+   a card field ("shown where present; clamped"). The cards have no scope line. The
+   description with "Show more" in the design may be this field; confirm with Callum.
+
+## Test fixture (placeholder data)
+
+Team A's data shape (K-4) has not landed, so the fixture follows section 3 of the Test
+Fixture Specification v1.0: the Field Mapping 6.2 response, built in code.
+
+- `frontend/tests/fixtures/compliance-fixtures.ts` builds SUP-1 (rich), SUP-2 (thin) and
+  the shared 404 for SUP-3 and an unregistered id, with the 6 certificates and 19
+  answers of the spec. Every date is an offset from the `now` passed in, so re-running
+  it never rots and always produces the same result for the same `now`.
+- `node scripts/seed-compliance-fixtures.mjs [--now <iso>] [--out <dir>]` prints the
+  fixture or writes one JSON file per case. Needs Node 22.18+ (type stripping); Node
+  may print a one-line module warning, which is harmless.
+- `src/features/trust-page/profile-response.ts` holds the 6.2 types and the mapping
+  from the API's snake_case to the components' props (`self_declared` becomes
+  `self-declared`). S2-2 replaces this mapping when it assembles the real payload.
+- `value` is `{}` on every answer (G-1 open). `provenance` is `null` when an answer has
+  no source and `{}` when it has one (G-2 open).
+- The generator stands in for Team A's server: status derivation (3.1), the publish
+  filter (R-1), the nightly staleness job (G-10) and `last_updated` (2.1). It mirrors
+  Requirements v1.3 and is not the real implementation.
+- ANS-10 (`on_request`) is left out of the payload, following Field Mapping 6.1 rule 4.
+  The spec's coverage matrix says the row's title stays visible for S2-11; that needs
+  reconciling with Team A.
+- Not yet covered: ANS-12 escaping (its text belongs in `value`, so it waits for G-1)
+  and the P-5 placeholder frame (decision 4 above).
+- The seed SQL from Team A (`seed_compliance.sql`) has no date, multi-select, number
+  or derived question and no Environment or Packaging category, so ANS-02, 04, 05, 13,
+  08, 09, 14 and 15 cannot be seeded against it as it stands.
 
 ## Verification, 20 September 2026
 
 - Production build including TypeScript: passed.
 - ESLint on added components, preview and modified provider: passed.
-- Frontend Vitest: 16 tests passed across 4 files (8 new S2-3 tests).
+- Frontend Vitest: 55 tests passed and 3 todo across 6 files. The fixture adds 35
+  tests; three deliberate breaks of the generator (verification outranking expiry, the
+  publish filter ignoring visibility, `last_updated` counting private answers) each
+  made tests fail.
 - `node scripts/check-s2-3.mjs`: all four preview scenarios return server-rendered
   HTML; no download links; `/dashboard` still redirects unauthenticated viewers.
 - Browser checked full, thin, empty and long scenarios. At a 390px viewport,
