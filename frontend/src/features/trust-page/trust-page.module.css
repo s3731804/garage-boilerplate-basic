@@ -286,4 +286,17 @@
   .name {
     font-size: 24px;
   }
+  /* Stacked on phones, as in the mobile frame: no divider and no indent. Left
+     as a row, a wrapped Country line kept the divider and its 25px padding. */
+  .facts {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .fact + .fact {
+    padding-left: 0;
+  }
+  .fact + .fact::before {
+    display: none;
+  }
 }

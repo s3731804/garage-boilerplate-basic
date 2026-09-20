@@ -31,6 +31,14 @@ describe('SupplierHeader', () => {
     expect(screen.getByText('AC')).toBeInTheDocument()
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
+  it('takes initials from letters and digits, skipping punctuation and symbols', () => {
+    const { rerender } = render(<SupplierHeader supplier={{ name: 'Greenleaf (thin demo)' }} />)
+    expect(screen.getByText('GT')).toBeInTheDocument()
+    rerender(<SupplierHeader supplier={{ name: 'Smith & Sons Pty Ltd' }} />)
+    expect(screen.getByText('SS')).toBeInTheDocument()
+    rerender(<SupplierHeader supplier={{ name: '3M' }} />)
+    expect(screen.getByText('3')).toBeInTheDocument()
+  })
   it('omits absent fields and invalid dates instead of rendering blank labels', () => {
     const { container } = render(
       <SupplierHeader

@@ -6,12 +6,12 @@ import styles from './trust-page.module.css'
 // "logo-placeholder" (initials on the brand colour). Decorative: the name is
 // rendered as the heading right beside it.
 function initials(name: string): string {
+  // First letter or digit of each word, so "(thin demo)" or "&" never becomes an initial.
   return name
-    .trim()
     .split(/\s+/)
+    .map((word) => word.match(/[\p{L}\p{N}]/u)?.[0] ?? '')
     .filter(Boolean)
     .slice(0, 2)
-    .map((word) => Array.from(word)[0] ?? '')
     .join('')
     .toUpperCase()
 }
